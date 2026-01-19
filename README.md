@@ -1,4 +1,6 @@
 ## Commands & Settings
+
+### 1. Data Input (Choose one)
 | Argument | Description | Usage Example |
 | :--- | :--- | :--- |
 | `--fmin` & `--fmax` | Scans a sequential range of PubChem CIDs. | `--fmin 100 --fmax 200` |
