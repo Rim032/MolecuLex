@@ -1,0 +1,101 @@
+Compound Name,Molecular Weight (g/mol),H-Donors,H-Acceptors,LogP,Drug Possibility,Lipinski Violations,PubChem ID
+3-acetyloxy-4-(trimethylazaniumyl)butanoate,203.238,0,4,-1.2357,True,None,1
+(2-acetyloxy-3-carboxypropyl)-trimethylazanium,204.246,1,3,0.099,True,None,2
+"5,6-dihydroxycyclohexa-1,3-diene-1-carboxylic acid",156.137,3,3,-0.711,True,None,3
+1-aminopropan-2-ol,75.111,2,2,-0.6741,True,None,4
+(3-amino-2-oxopropyl) dihydrogen phosphate,169.073,3,4,-1.3765,True,None,5
+"1-chloro-2,4-dinitrobenzene",202.553,0,4,2.1564,True,None,6
+9-ethylpurin-6-amine,163.184,1,5,0.4284,True,None,7
+"2,3-dihydroxy-3-methylpentanoic acid",148.158,3,3,-0.4071,True,None,8
+"(2,3,4,5,6-pentahydroxycyclohexyl) dihydrogen phosphate",260.135,7,7,-3.7176,False,Hydrogen bond donors > 5),9
+"2-[[4-[(2-amino-4-oxo-5,6,7,8-tetrahydro-1H-pteridin-6-yl)methyl-formylamino]benzoyl]amino]pentanedioic acid",473.446,7,9,-0.7311,False,Hydrogen bond donors > 5),10
+"1,2-dichloroethane",98.96,0,0,1.464,True,None,11
+"benzene-1,2,3,5-tetrol",142.11,4,4,0.509,True,None,12
+"1,2,4-trichlorobenzene",181.449,0,0,3.6468,True,None,13
+7-[3-hydroxy-5-oxo-2-(3-oxooct-1-enyl)cyclopentyl]heptanoic acid,352.471,2,4,3.6833,True,None,14
+"17-hydroxy-10,13-dimethyl-1,2,4,5,6,7,8,9,11,12,14,15,16,17-tetradecahydrocyclopenta[a]phenanthren-3-one",290.447,1,2,3.9591,True,None,15
+"1,8-diazacyclotetradecane-2,9-dione",226.32,2,2,1.3532,True,None,16
+"2,3-dihydropyridine-2,6-dicarboxylic acid",169.136,2,3,-0.0749,True,None,17
+"4,5,6-trihydroxy-2,3-dioxohexanoic acid",192.123,4,6,-3.0767,True,None,18
+"2,3-dihydroxybenzoic acid",154.121,3,3,0.796,True,None,19
+"3-(2,3-dihydroxyphenyl)propanoic acid",182.175,3,3,1.115,True,None,20
+2-ethyl-2-hydroxy-3-oxobutanoic acid,146.142,2,3,-0.1989,True,None,21
+2-hydroxy-2-methyl-3-oxobutanoic acid,132.115,2,3,-0.589,True,None,22
+2-amino-3-(3-oxoprop-1-enyl)but-2-enedioic acid,185.135,3,4,-0.8765,True,None,23
+"2-amino-5,6,7,8-tetrahydroxy-6-(1,2,3-trihydroxypropyl)-3,4a,7,8a-tetrahydropteridin-4-one",323.262,9,12,-5.7573,False,Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),24
+"2-amino-7,8-dihydroxy-6-(1,2,3-trihydroxypropyl)-1,5,6,7-tetrahydropteridin-4-one",289.248,8,10,-3.6257,False,Hydrogen bond donors > 5),25
+"1-(2-amino-7,8-dihydroxy-4-oxo-3,4a,7,8a-tetrahydropteridin-6-yl)propane-1,2-dione",269.217,4,9,-3.2521,True,None,26
+"[[3-(2-amino-7,8-dihydroxy-4-oxo-1,7-dihydropteridin-6-yl)-2,3-dihydroxypropoxy]-hydroxyphosphoryl] phosphono hydrogen phosphate",527.169,10,15,-2.9827,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),27
+"2-aminohexa-2,4-dienedioic acid",157.125,3,3,-0.4456,True,None,28
+2-amino-3-oxopropanoic acid,103.077,2,3,-1.4028,True,None,29
+"2-amino-6-oxohexa-2,4-dienoic acid",141.126,2,3,-0.3313,True,None,30
+"(2,3,4-trihydroxy-3-methylbutyl) dihydrogen phosphate",216.126,5,5,-1.8001,True,None,31
+"buta-1,3-diene-1,1,4-tricarboxylic acid",186.119,3,3,-0.2772,True,None,32
+2-chloroacetaldehyde,78.498,0,1,0.4241,True,None,33
+2-chloroethanol,80.514,1,1,0.2175,True,None,34
+2-(2-chloro-5-oxofuran-2-yl)acetic acid,176.555,1,3,0.5092,True,None,35
+2-hydroxy-3-propan-2-ylbutanedioic acid,176.168,3,3,-0.2113,True,None,36
+"4,5,6-trihydroxy-2-oxohexanoic acid",178.14,4,5,-2.2557,True,None,37
+"4-hydroxy-3,3-dimethyl-2-oxobutanoic acid",146.142,2,3,-0.3414,True,None,38
+"4,4-dimethyloxolane-2,3-dione",128.127,0,3,0.1385,True,None,39
+"6-(hydroxymethyl)oxane-2,4,5-triol",164.157,4,5,-2.1922,True,None,40
+(2-hydroxy-5-methylsulfanyl-3-oxopent-1-enyl) dihydrogen phosphate,242.189,3,5,0.8173,True,None,41
+"2-hydroxy-6-oxonona-2,4-dienedioic acid",214.173,3,4,0.503,True,None,42
+2-hydroxypentanedioic acid,148.114,3,3,-0.7033,True,None,43
+2-hydroxypropanedioate,118.044,1,5,-4.1529,True,None,44
+2-hydroxypropanedioic acid,120.06,3,3,-1.4835,True,None,45
+"4,5-dihydroxy-2-oxo-6-phosphonooxyhexanoic acid",258.119,5,6,-2.1387,True,None,46
+3-methyl-2-oxopentanoic acid,130.143,1,2,0.6862,True,None,47
+"5-amino-2,5-dioxopentanoic acid",145.114,2,3,-1.0944,True,None,48
+3-methyl-2-oxobutanoic acid,116.116,1,2,0.2961,True,None,49
+"3,4,5,6-tetrahydroxy-2-oxohexanoic acid",194.139,5,6,-3.2849,True,None,50
+2-oxopentanedioic acid,146.098,2,3,-0.4951,True,None,51
+"S-[2-[3-[[4-[[[5-(6-aminopurin-9-yl)-4-hydroxy-3-phosphonooxyoxolan-2-yl]methoxy-hydroxyphosphoryl]oxy-hydroxyphosphoryl]oxy-2-hydroxy-3,3-dimethylbutanoyl]amino]propanoylamino]ethyl] 3-hydroxy-2-methylbutanethioate",867.658,10,20,-1.3184,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),52
+"S-[2-[3-[[4-[[[5-(6-aminopurin-9-yl)-4-hydroxy-3-phosphonooxyoxolan-2-yl]methoxy-hydroxyphosphoryl]oxy-hydroxyphosphoryl]oxy-2-hydroxy-3,3-dimethylbutanoyl]amino]propanoylamino]ethyl] 2-methyl-3-oxobutanethioate",865.642,9,20,-1.1102,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),53
+"S-[2-[3-[[4-[[[5-(6-aminopurin-9-yl)-4-hydroxy-3-phosphonooxyoxolan-2-yl]methoxy-hydroxyphosphoryl]oxy-hydroxyphosphoryl]oxy-2-hydroxy-3,3-dimethylbutanoyl]amino]propanoylamino]ethyl] 2-methylbutanethioate",851.659,9,19,-0.2892,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),54
+"3-(3,7,11,15,19,23,27,31-octamethyldotriaconta-2,6,10,14,18,22,26,30-octaenyl)benzene-1,2-diol",655.064,2,2,14.692,False,Molecular Weight (g/mol) > 500); Octanol-water partition coefficient (LogP) > 5),55
+"2-(3,7,11,15,19,23,27-heptamethyldotriaconta-2,6,10,14,18,22,26,30-octaenyl)-6-methoxyphenol",655.064,1,2,14.6049,False,Molecular Weight (g/mol) > 500); Octanol-water partition coefficient (LogP) > 5),56
+"2-(3,7,11,15,19,23,27,31-octamethyldotriaconta-2,6,10,14,18,22,26,30-octaenyl)phenol",639.065,1,1,14.9864,False,Molecular Weight (g/mol) > 500); Octanol-water partition coefficient (LogP) > 5),57
+2-oxobutanoic acid,102.089,1,2,0.0501,True,None,58
+3-hydroxy-2-phosphonooxypropanoic acid,186.056,4,4,-1.4588,True,None,59
+"[[5-(4-amino-2-oxopyrimidin-1-yl)-3,4-dihydroxyoxolan-2-yl]methoxy-hydroxyphosphoryl] (2,4-dihydroxy-3-methyl-3-phosphonooxybutyl) hydrogen phosphate",601.288,9,16,-3.0835,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),60
+"2,3-diphosphonooxypropanoic acid",266.035,5,5,-1.3418,True,None,61
+"2,4,5-trichlorocyclohexa-2,5-dien-1-ol",199.464,1,1,2.2137,True,None,62
+"2,4-diaminopentanoic acid",132.163,3,3,-0.8644,True,None,63
+"2,5-dichlorocyclohexa-2,5-diene-1,4-diol",181.018,2,2,0.9672,True,None,64
+"2,5-dichlorobenzene-1,4-diol",179.002,2,2,2.4046,True,None,65
+"2,5-dichlorophenol",163.003,1,1,2.699,True,None,66
+"3,4,6-trihydroxy-2,5-dioxohexanoic acid",192.123,4,6,-3.0767,True,None,67
+"2,4-dihydroxy-6-(hydroxymethyl)-6-methyl-2,4-dioxo-1,3,5,2lambda5,4lambda5-trioxadiphosphocan-7-ol",278.09,4,7,-0.6375,True,None,68
+"2-hydroxy-6-oxohepta-2,4-dienoic acid",156.137,2,3,0.6581,True,None,69
+4-methyl-2-oxopentanoic acid,130.143,1,2,0.6862,True,None,70
+2-oxohexanedioic acid,160.125,2,3,-0.105,True,None,71
+"3,4-dihydroxybenzoic acid",154.121,3,3,0.796,True,None,72
+[5-(6-aminopurin-9-yl)-4-hydroxy-2-(phosphonooxymethyl)oxolan-3-yl] dihydrogen phosphate,427.203,6,11,-1.746,False,Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),73
+"S-[2-[3-[[4-[[[5-(6-aminopurin-9-yl)-4-hydroxy-3-phosphonooxyoxolan-2-yl]methoxy-hydroxyphosphoryl]oxy-hydroxyphosphoryl]oxy-2-hydroxy-3,3-dimethylbutanoyl]amino]propanoylamino]ethyl] 3-oxobutanethioate",851.615,9,20,-1.3562,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),74
+3-aminopropanal,73.095,1,2,-0.4659,True,None,75
+"3-hydroxy-10,13-dimethyl-1,2,3,4,7,8,9,11,12,14,15,16-dodecahydrocyclopenta[a]phenanthren-17-one",288.431,1,2,3.8792,True,None,76
+2-hydroxy-2-propan-2-ylbutanedioic acid,176.168,3,3,-0.0672,True,None,77
+2-amino-3-chloropropanoic acid,123.539,2,2,-0.3629,True,None,78
+pyridine-3-carbonitrile,104.112,0,2,0.95328,True,None,79
+"4,5-dihydroxy-3-oxocyclohexene-1-carboxylic acid",172.136,3,4,-1.308,True,None,80
+"4,5,6-trihydroxy-2-oxo-7-phosphonooxyheptanoic acid",288.145,6,7,-2.7778,False,Hydrogen bond donors > 5),81
+5-(1-carboxyethenoxy)-4-hydroxy-3-phosphonooxycyclohexene-1-carboxylic acid,324.178,5,6,-0.7766,True,None,82
+3-hydroxyphosphonoyl-2-oxopropanoic acid,152.042,2,3,-0.8929,True,None,83
+"5-[2-[3-[[4-[[[5-(6-aminopurin-9-yl)-4-hydroxy-3-phosphonooxyoxolan-2-yl]methoxy-hydroxyphosphoryl]oxy-hydroxyphosphoryl]oxy-2-hydroxy-3,3-dimethylbutanoyl]amino]propanoylamino]ethylsulfanyl]-3-hydroxy-3-methyl-5-oxopentanoic acid",911.667,11,21,-1.7195,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),84
+(3-carboxy-2-hydroxypropyl)-trimethylazanium,162.209,2,2,-0.4718,True,None,85
+2-amino-3-hydroxybenzoic acid,153.137,3,3,0.6726,True,None,86
+3-hydroxy-2-methylpropanoic acid,104.105,2,2,-0.3006,True,None,87
+"S-[2-[3-[[4-[[[5-(6-aminopurin-9-yl)-4-hydroxy-3-phosphonooxyoxolan-2-yl]methoxy-hydroxyphosphoryl]oxy-hydroxyphosphoryl]oxy-2-hydroxy-3,3-dimethylbutanoyl]amino]propanoylamino]ethyl] 3-hydroxy-2-methylpropanethioate",853.631,10,20,-1.7069,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),88
+2-amino-4-(2-amino-3-hydroxyphenyl)-4-oxobutanoic acid,224.216,4,5,-0.0409,True,None,89
+"6-[2-[3-[[4-[[[5-(6-aminopurin-9-yl)-4-hydroxy-3-phosphonooxyoxolan-2-yl]methoxy-hydroxyphosphoryl]oxy-hydroxyphosphoryl]oxy-2-hydroxy-3,3-dimethylbutanoyl]amino]propanoylamino]ethylsulfanyl]-4-hydroxy-6-oxohexanoic acid",911.667,11,21,-1.7195,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),90
+3-(3-hydroxyphenyl)propanoic acid,166.176,2,2,1.4094,True,None,91
+3-ethenyl-6-[hydroxy-(6-methoxyquinolin-4-yl)methyl]-1-azabicyclo[2.2.2]octan-3-ol,340.423,2,5,2.2881,True,None,92
+3-oxohexanedioic acid,160.125,2,3,-0.105,True,None,93
+"6-[2-[3-[[4-[[[5-(6-aminopurin-9-yl)-4-hydroxy-3-phosphonooxyoxolan-2-yl]methoxy-hydroxyphosphoryl]oxy-hydroxyphosphoryl]oxy-2-hydroxy-3,3-dimethylbutanoyl]amino]propanoylamino]ethylsulfanyl]-4,6-dioxohexanoic acid",909.651,10,21,-1.5113,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),94
+"2,4,5,6-tetrahydroxy-3-oxohexanoic acid",194.139,5,6,-3.2849,True,None,95
+3-oxobutanoic acid,102.089,1,2,0.0501,True,None,96
+"3,5-dihydroxy-2-(hydroxymethyl)-6-[4,5,6-trihydroxy-2-(hydroxymethyl)oxan-3-yl]oxyoxan-4-one",340.281,7,11,-5.189,False,Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),97
+2-oxo-3-sulfanylpropanoic acid,120.129,2,3,-0.4301,True,None,98
+"S-[2-[3-[[4-[[[5-(6-aminopurin-9-yl)-4-hydroxy-3-phosphonooxyoxolan-2-yl]methoxy-hydroxyphosphoryl]oxy-hydroxyphosphoryl]oxy-2-hydroxy-3,3-dimethylbutanoyl]amino]propanoylamino]ethyl] 3-methylbut-2-enethioate",849.643,9,19,-0.3691,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10),99
+"4-hydroxy-3-(3,7,11,15,19,23,27,31-octamethyldotriaconta-2,6,10,14,18,22,26,30-octaenyl)benzoic acid",683.074,2,2,14.6846,False,Molecular Weight (g/mol) > 500); Octanol-water partition coefficient (LogP) > 5),100
