@@ -3,7 +3,7 @@
 | :--- | :--- | :--- |
 | `--fmin` & `--fmax` | Scans a sequential range of PubChem CIDs. | `--fmin 100 --fmax 200` |
 | `--file` | Reads CIDs from a `.txt` file (comma or space separated). | `--file list.txt` |
-| `--entry` | Allows manual entry of CIDs directly in the console. | `--entry "2244, 1983"` |
+| `--entry` | Allows manual entry of CIDs directly in the console. | `--entry 2244, 1983` |
 
 ### 2. Analysis & Export Flags
 | Argument | Description |
