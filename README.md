@@ -1,5 +1,5 @@
 # MolecuLex (v0.9)
-**MolecuLex** is a versatile, light-weight chemoinformatics CLI tool designed for automated reagent, drug, and general molecule fetching and screening. Through the usage of **RDKit** and **PubChemPy**, researchers are able to rapidly evaluate large queries of chemical en masse.
+**MolecuLex** is a versatile, light-weight chemoinformatics CLI tool designed for automated reagent, drug, and general molecule probing. Through the usage of **RDKit** and **PubChemPy**, researchers are able to rapidly evaluate large batches of compounds en masse.
 
 ## Commands & Settings
 
@@ -23,3 +23,12 @@
 Scan a range of IDs, evaluate drug-likeness, and export to a specific CSV file.
 ```bash
 python moleculex.py --fmin 1 --fmax 100 --drug --csv_save my_results
+```
+
+---
+
+## Misc.
+* **Note:**
+* **Testing:**
+* **Compatibility:**
+* **Notice:**
