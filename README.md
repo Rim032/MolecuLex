@@ -30,6 +30,7 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 | `--noprint` | Disables visual console output (useful for high-volume processing). |
 
 ### 2. API & Internal Flags
+| Argument | Description |
 | :--- | :--- |
 | `--ovr_delay [int]` | Ovveride the delay between API request in seconds. Use with caution! |
 | `--ovr_maxreq [int]` | Alter the maximum number of API requests before a cooldown engages. Use with caution! |
