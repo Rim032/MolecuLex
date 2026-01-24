@@ -15,7 +15,7 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 
 ## Commands & Settings
 
-### 1. Data Input (Choose one)
+### 1. Data Input Flags (Choose one)
 | Argument | Description | Usage Example |
 | :--- | :--- | :--- |
 | `--fmin [int]` & `--fmax [int]` | Scans a sequential range of PubChem CIDs. | `--fmin 100 --fmax 200` |
@@ -28,7 +28,12 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 | `--drug` | Enables Lipinski’s Rule of Five screening and displays violations. |
 | `--csv_save [name]` | Exports results to a CSV file. Provide a name or leave blank for default. |
 | `--noprint` | Disables visual console output (useful for high-volume processing). |
-| `--ovr_delay [int]` | Manual override for API request delay (default is 0.1s). Use with caution. |
+
+### 2. API & Internal Flags
+| :--- | :--- |
+| `--ovr_delay [int]` | Ovveride the delay between API request in seconds. Use with caution! |
+| `--ovr_maxreq [int]` | Alter the maximum number of API requests before a cooldown engages. Use with caution! |
+| `--ovr_cooldown [int]` | Change the temporary cooldown time after a limit of API requests is reached. Use with caution! |
 
 ---
 **Example Usage & Arguments:**
