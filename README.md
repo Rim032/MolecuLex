@@ -19,7 +19,7 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 
 ## Description
 
-This program utilizes a high-volume pipeline optimized for chunked [PUG REST](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest) requests at incraments of 256 compounds. It hosts a robust chemoinformatics suite through providing metrics on molecular composition, topological polar surface area (TPSA), electronic partial charges, and so much more, alongside Lipinski Rule of Five screening. Data is able to be rapidly organized and exported through a .CSV file pipeline for molecule collection, database screening and more. Supporting sequential ranges, manual entry, and file parsing, it serves as a flexible and easy-to-use tool for chemists and others alike.
+This program utilizes a high-volume pipeline optimized for chunked [PUG REST](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest) requests at incraments of 256 compounds. It hosts a robust chemoinformatics suite through providing metrics on molecular composition, topological polar surface area (TPSA), electronic partial charges, and so much more, alongside Lipinski Rule of Five screening. Data is able to be rapidly organized and exported through a .CSV file pipeline for molecule collection, database screening, and more. Supporting sequential ranges, manual entry, and file parsing, it serves as a flexible and easy-to-use tool for chemists and others alike.
 
 ## Commands & Settings
 
@@ -41,7 +41,7 @@ This program utilizes a high-volume pipeline optimized for chunked [PUG REST](ht
 
 ---
 **Example Usage & Arguments:**
-Scan a range of IDs, evaluate drug-likeness, and export to a specific CSV file.
+Scan a range of IDs, search for additional structural properties, and export to a specific CSV file.
 ```bash
 python moleculex.py --fmin 1 --fmax 4096 --full --save_csv my_data_and_such
 ```
