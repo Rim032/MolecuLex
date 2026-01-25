@@ -29,7 +29,7 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 | `--save_csv [name]` | Exports results to a CSV file. Provide a name or leave blank for default. |
 | `--noprint` | Disables visual console output (useful for high-volume processing). |
 
-### 2. API & Internal Flags
+### 2. API Flags
 | Argument | Description |
 | :--- | :--- |
 | `--ovr_delay [int]` | Ovveride the delay between API request in seconds. Use with caution! |
