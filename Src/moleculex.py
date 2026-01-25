@@ -26,7 +26,7 @@ log_types = [
 ]
 
 display_drug_attributes = True
-application_version = 0.9
+application_version = 0.95
 
 console_noprint = False
 save_csv_data = False
@@ -436,3 +436,4 @@ if __name__ == "__main__":
     application_end_time = time.perf_counter()
     print_log(0, f"Search and analysis completed (Execution Time: {(application_end_time-application_start_time):2f} seconds)...")
     temp_char = input("\nPress enter to exit...")    
+
