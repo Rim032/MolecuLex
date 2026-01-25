@@ -19,7 +19,7 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 
 ## Description
 
-This program utilizes a high-volume pipeline optimized for chunked [PUG REST](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest) requests at incraments of 256 compounds. It hosts a robust chemoinformatics suite through providing metrics on molecular composition, topological polar surface area (TPSA), electronic partial charges, and so much more, alongside Lipinski Rule of Five screening. Data is able to be rapidly organized and exported through a .CSV file pipeline for molecule collection, database screening, and more. Supporting sequential ranges, manual entry, and file parsing, it serves as a flexible and easy-to-use tool for chemists and others alike.
+This program utilizes a high-volume pipeline optimized for chunked [PUG REST](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest) requests at increments of 256 compounds. It hosts a robust chemoinformatics suite through providing metrics on molecular composition, topological polar surface area (TPSA), electronic partial charges, and so much more, alongside Lipinski Rule of Five screening. Data is able to be rapidly organized and exported through a .CSV file pipeline for molecule collection, database screening, and more. Supporting sequential ranges, manual entry, and file parsing, it serves as a flexible and easy-to-use tool for chemists and others alike.
 
 ## Commands & Settings
 
@@ -50,5 +50,5 @@ python moleculex.py --fmin 1 --fmax 4096 --full --save_csv my_data_and_such
 
 ## Misc.
 * **Note:** Files containing CIDs must be separated by commas (exclude any and all spaces. **type --format for more information in the program**).
-* **Testing:** As of writing, this program has proved able to successfully analyze and export chemical data for over 32,000+ compounds and counting. Over eight trials, consisting of a thousand entries each, it has demonstrated to be capable of requesting and processing 130 (± 2.2) compounds per second on average.
+* **Testing:** Over testing, this program has been able to successfully analyze and export chemical data for over 120,000+ compounds and counting. Over eight trials, consisting of a thousand entries each, it has demonstrated to be capable of requesting and processing 130 (± 2.2) compounds per second on average.
 * **Compatibility:** Windows 10/11 and Python 3.10+ are required.
