@@ -1,4 +1,4 @@
-# MolecuLex (v0.97)
+# MolecuLex (v0.99)
 ```
  __       __            __                                __                           
 /  \     /  |          /  |                              /  |                          
@@ -49,6 +49,6 @@ python moleculex.py --fmin 1 --fmax 4096 --full --save_csv my_data_and_such
 ---
 
 ## Misc.
-* **Note:** A windows executable (.exe) of this project will be published upon the 1.0 release. Files containing CIDs must be separated by commas (exclude any and all spaces. **type --format for more information in the program**).
+* **Note:** Files containing CIDs must be separated by commas (exclude any and all spaces. **type --format for more information in the program**).
 * **Testing:** As of writing, this program has proved able to successfully analyze and export chemical data for over 32,000+ compounds and counting. Over eight trials, consisting of a thousand entries each, it has demonstrated to be capable of requesting and processing 130 (± 2.2) compounds per second on average.
 * **Compatibility:** Windows 10/11 and Python 3.10+ are required.
