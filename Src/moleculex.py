@@ -9,6 +9,7 @@ from rdkit import Chem
 import pubchempy as pcp
 from rdkit.ML.Descriptors import MoleculeDescriptors
 from rdkit.Chem import Descriptors
+from rdkit.Chem import rdMolDescriptors
 
 
 os.system('')
@@ -24,27 +25,36 @@ log_types = [
     "WARNING"   #2
 ]
 
-display_drug_attributes = False
+display_drug_attributes = True
 application_version = 0.9
+
 console_noprint = False
 save_csv_data = False
+record_full_data = False
+disable_stat_report = False
+
+violation_count = 0
+likely_drug_count = 0
+unlikely_drug_count = 0
+total_requests_made = 0
+total_cooldowns = 0
 
 
 csv_file_name = "untitled_molecuLex_data"
 csv_data = [
-    ["Compound Name", "Molecular Weight (g/mol)", "H-Donors", "H-Acceptors", "LogP", "Drug Possibility", "Lipinski Violations", "PubChem ID"]
+    ["Compound Name", "PubChem ID", "Molecular Weight (g/mol)", "H-Donors", "H-Acceptors", "LogP", "Drug Possibility", "Lipinski Violations"]
 ]
 
 
 
 
-def print_log(log_type: int, message: str) -> str:
+def print_log(log_type: int, message: str) -> None:
     if message is None or log_type is None:
         return
     print(f"[{log_types[log_type]}] - {message}")
 
 
-def append_csv_molecule_data(molecule_data: list[any]) -> None:
+def append_csv_molecule_data(molecule_data: dict) -> None:
     if molecule_data is None:
         print_log(1, f"Cannot append molecule data to CSV data list. Passed data is invalid.")
         return
@@ -54,10 +64,6 @@ def append_csv_molecule_data(molecule_data: list[any]) -> None:
 
 
 def save_csv_molecule_data() -> None:
-    if save_csv_data is False:
-        print_log(1, f"Cannot save molecule CSV file.")
-        return
-
     try:
         with open(f"{csv_file_name}.csv", mode='w', newline='', encoding='utf-8') as csv_file:
             file_writer = csv.writer(csv_file, delimiter=',')
@@ -67,20 +73,27 @@ def save_csv_molecule_data() -> None:
         print_log(1, f"Failed to save CSV: {err}")
 
 
-def record_molecule_info(name: str, mw: float, hdonors: int, hacceptors: int, logp: float, drug_chance: bool, violations: list[str], pc_id: int) -> str:
-    if console_noprint is True:
+def record_molecule_info(molecule_data: dict) -> None:
+    if console_noprint is True or molecule_data is None:
         return
+
+    mw: float = molecule_data["mw"]
+    log_p: float = molecule_data["log_p"]
+    h_acceptors: int = molecule_data["h_acceptors"]
+    h_donors: int = molecule_data["h_donors"]
+    is_drug_likely: bool = molecule_data["is_drug_likely"]
+    name: str = molecule_data["name"]
     
-    WIDTH = 62
-    LABEL_W = 20
-    DATA_W = 30
+    WIDTH: int = 62
+    LABEL_W: int = 20
+    DATA_W: int = 30
     
     try:
-        symbol = "•" if drug_chance else "♦"
-        tag = "[ LIKELY DRUG CANDIDATE ]" if drug_chance else "[ UNLIKELY DRUG CANDIDATE ]"
+        tag = "[ LIKELY DRUG CANDIDATE ]" if is_drug_likely else "[ UNLIKELY DRUG CANDIDATE ]"
         print(f"\n╔{'═' * (WIDTH-2)}╗")
-        
-        prefix = f"{symbol} CID ({pc_id}): "
+
+        molecule_id = molecule_data["id"]
+        prefix = f"• CID ({molecule_id}): "
         available_space = (WIDTH - 4) - len(prefix)
 
         if len(name) > available_space:
@@ -92,19 +105,52 @@ def record_molecule_info(name: str, mw: float, hdonors: int, hacceptors: int, lo
         print(f"║ {full_content:<{WIDTH - 4}} ║")
         print(f"╠{'═' * (WIDTH-2)}╣")
 
-        print(f"║ { 'Mass:':<{LABEL_W}}{mw:>{DATA_W}.4f} g/mol {' ':<2}║")
-        print(f"║ { 'LogP:':<{LABEL_W}}{logp:>{DATA_W}.4f} {' ':<8}║")
-        print(f"║ { 'H-Donors:':<{LABEL_W}}{hdonors:>{DATA_W}} {' ':<8}║")
-        print(f"║ { 'H-Acceptors:':<{LABEL_W}}{hacceptors:>{DATA_W}} {' ':<8}║")
+        print(f"║ { 'Molecular Weight:':<{LABEL_W}}{mw:>{DATA_W}.4f} g/mol {' ':<2}║")
+        print(f"║ { 'LogP:':<{LABEL_W}}{log_p:>{DATA_W}.4f} {' ':<8}║")
+        print(f"║ { 'H-Donors:':<{LABEL_W}}{h_donors:>{DATA_W}} {' ':<8}║")
+        print(f"║ { 'H-Acceptors:':<{LABEL_W}}{h_acceptors:>{DATA_W}} {' ':<8}║")
 
         if display_drug_attributes is True:
             print(f"╟{'─' * (WIDTH-2)}╢")
             print(f"║ {tag:^{WIDTH-4}} ║")
             
-            if violations:
-                for v in violations:
-                    clean_v = (v[:WIDTH-10] + '..') if len(v) > (WIDTH-10) else v
-                    print(f"║ ! {clean_v:<{WIDTH-5}}║")
+            for rule_violator in molecule_data["violations"]:
+                clean_violation = (rule_violator[:WIDTH-10] + '..') if len(rule_violator) > (WIDTH-10) else rule_violator
+                print(f"║ ! {clean_violation:<{WIDTH-5}}║")
+        print(f"╚{'═' * (WIDTH-2)}╝")
+    except Exception as err:
+        print_log(1, f"Printing issue. {err}.")
+
+
+def record_molecule_summary(id_list: list[str]) -> None:
+    if disable_stat_report is True or id_list is None:
+        return
+    
+    WIDTH: int = 62
+    LABEL_W: int = 20
+    DATA_W: int = 30
+
+    cooldown_time_calculated: float = total_cooldowns * max_request_cooldown
+    
+    try:
+        print("\n\n")
+        print(f"\n╔{'═' * (WIDTH-2)}╗")
+        full_content = f"+++ SUMMARY REPORT +++"
+        
+        print(f"║ {full_content:<{WIDTH - 4}} ║")
+        print(f"╠{'═' * (WIDTH-2)}╣")
+
+        print(f"║ { 'Total Compounds:':<{LABEL_W}}{len(id_list):>{DATA_W}}\t   {' ':<2}║")
+        print(f"║ { 'Total Violations:':<{LABEL_W}}{violation_count:>{DATA_W}}\t   {' ':<2}║")
+        print(f"║ { '# Likely Drugs:':<{LABEL_W}}{unlikely_drug_count:>{DATA_W}}\t   {' ':<2}║")
+        print(f"║ { '# Unlikely Drugs:':<{LABEL_W}}{likely_drug_count:>{DATA_W}}\t   {' ':<2}║")
+
+        print(f"╟{'─' * (WIDTH-2)}╢")
+        
+        print(f"║ { 'Total API Requests:':<{LABEL_W}}{total_requests_made:>{DATA_W}}\t   {' ':<2}║")
+        print(f"║ { 'Total API Cooldowns:':<{LABEL_W}}{total_cooldowns:>{DATA_W}}\t   {' ':<2}║")
+        print(f"║ { 'Total Cooldown Time:':<{LABEL_W}}{cooldown_time_calculated:>{DATA_W}} s\t   {' ':<2}║")
+        
         print(f"╚{'═' * (WIDTH-2)}╝")
     except Exception as err:
         print_log(1, f"Printing issue. {err}.")
@@ -143,6 +189,15 @@ def format_id_list(ids: str) -> list[str]:
     return id_list
 
 
+def api_bar_print(id_list: list[str], bar_length: int, compound_index: int, compound_id: int) -> None:
+    api_progress = compound_index / len(id_list)
+    filled_len = int(bar_length * api_progress)
+    api_bar = "▓" * filled_len + "░" * (bar_length - filled_len)
+    que_percent = int(api_progress * 100)
+    sys.stdout.write(f"\rPROGRESS: [{api_bar}] {que_percent}% | Analyzing CID: {compound_id:<10}")
+    sys.stdout.flush()
+
+
 def get_id_smiles(id_list: list[str]) -> list[str]:
     if id_list is None:
         print_log(1, "An invalid list of formatted IDs was passed.")
@@ -151,8 +206,7 @@ def get_id_smiles(id_list: list[str]) -> list[str]:
     smiles_list: list[str] = []
     name_list: list[str] = []
 
-    bar_length = 30
-    request_counter = 0
+    request_counter: int = 0
     try:
         print(f"\n{'—'*20} DATA ACQUISITION PHASE {'—'*20}")
         print_log(0, f"Connecting to PubChem API for {len(id_list)} compounds...")
@@ -162,66 +216,111 @@ def get_id_smiles(id_list: list[str]) -> list[str]:
                 print_log(2, f"Currently cannot faciliate any additional request to PubChem. ({max_pc_requests} request MAX)")
                 print_log(0, f"Requests have temporarily been placed on cooldown for {max_request_cooldown} seconds.")
                 
-                time.sleep(max_request_cooldown)
                 request_counter = 0
+                global total_cooldowns
+                total_cooldowns = total_cooldowns + 1
+                
+                time.sleep(max_request_cooldown)
                     
             pub_compound = pcp.Compound.from_cid(pub_id)
             time.sleep(server_request_delay)
-
-            progress = i / len(id_list)
-            filled_len = int(bar_length * progress)
-            bar = "▓" * filled_len + "░" * (bar_length - filled_len)
-            percent = int(progress * 100)
-            sys.stdout.write(f"\rPROGRESS: [{bar}] {percent}% | Analyzing CID: {pub_id:<10}")
-            sys.stdout.flush()
+            api_bar_print(id_list, 30, i, pub_id)
             
             if pub_compound is not None:
                 smiles_list.append(pub_compound.smiles)
                 name_list.append(pub_compound.iupac_name)
+                
             request_counter = request_counter + 1
+            global total_requests_made
+            total_requests_made = total_requests_made + 1
     except Exception as err:
         print("")
         print_log(1, f"API Issue. {err}.")
     print("")
+    
 
     return smiles_list, name_list
 
 
-def check_drug_properties(smiles_list: list[str], names_list: list[str], id_list: list[str]) -> None:
+def drug_candidate_check(mw: float, h_donors: int, h_acceptors: int, logp: float) -> bool:
+    if mw is None or h_donors is None or h_acceptors is None or logp is None:
+        print_log(1, "Cannot check the drug properties of a compound. Invalid arguments were passed.")
+        return "N/A Couldn't parse", False
+    violations: list[str] = []
+    
+    if mw > 500:
+        violations.append(f"Molecular Weight (g/mol) > 500)")
+    if h_donors > 5:
+        violations.append(f"Hydrogen bond donors > 5)")
+    if h_acceptors > 10:
+        violations.append(f"Hydrogen bond acceptors > 10)")
+    if logp > 5:
+        violations.append(f"Octanol-water partition coefficient (LogP) > 5)")
+        
+    if len(violations) >= 1:
+        global violation_count
+        violation_count = violation_count + len(violations)
+
+        global unlikely_drug_count
+        unlikely_drug_count = unlikely_drug_count + 1
+        
+        return violations, False
+    global likely_drug_count
+    likely_drug_count = likely_drug_count + 1
+    return violations, True
+
+
+def parse_compound_properties(smiles_list: list[str], names_list: list[str], id_list: list[str]) -> None:
     if smiles_list is None:
         print_log(1, "An invalid SMILES list was passed.")
         return
     
     for smiles, name, pc_id in zip(smiles_list, names_list, id_list):
         molecule = Chem.MolFromSmiles(smiles)
-
+        if molecule is None:
+            print_log(1, f"Could not parse a molecule. (CID: {pc_id})")
+            continue
+        
         try:
-            mw: float = round(Descriptors.MolWt(molecule), 5)
-            h_donors: int = Descriptors.NumHDonors(molecule)
-            h_acceptors: int = Descriptors.NumHAcceptors(molecule)
-            logp: float = round(Descriptors.MolLogP(molecule), 8)
-            is_drug_likely = True
+            molecule_data: list = {
+                "name": name,
+                "id": pc_id,
+                "mw": round(Descriptors.MolWt(molecule), 5),
+                "h_donors": Descriptors.NumHDonors(molecule),
+                "h_acceptors": Descriptors.NumHAcceptors(molecule),
+                "log_p": round(Descriptors.MolLogP(molecule), 8)
+            }
 
-
-            violations: list[str] = []
-            if mw > 500:
-                violations.append(f"Molecular Weight (g/mol) > 500)")
-            if h_donors > 5:
-                violations.append(f"Hydrogen bond donors > 5)")
-            if h_acceptors > 10:
-                violations.append(f"Hydrogen bond acceptors > 10)")
-            if logp > 5:
-                violations.append(f"Octanol-water partition coefficient (LogP) > 5)")
-            if len(violations) >= 1:
-                is_drug_likely = False
-
-            record_molecule_info(name, mw, h_donors, h_acceptors, logp, is_drug_likely, violations, pc_id)
+            violations, is_drug_likely = drug_candidate_check(molecule_data["mw"], molecule_data["h_donors"], molecule_data["h_acceptors"], molecule_data["log_p"])
+            molecule_data.update({"is_drug_likely": is_drug_likely, "violations": violations})
+            
+            if record_full_data is True:
+                molecule_data.update({"atom_number": molecule.GetNumAtoms(),
+                                      "molecular_formula": rdMolDescriptors.CalcMolFormula(Chem.AddHs(molecule)),
+                                      "bond_number": molecule.GetNumBonds(),
+                                      "ring_number": molecule.GetRingInfo().NumRings(),
+                                      "tpsa": Descriptors.TPSA(molecule),
+                                      "rot_bond_number": Descriptors.NumRotatableBonds(molecule),
+                                      "heavy_atoms": molecule.GetNumHeavyAtoms(),
+                                      "aromatic_ring_number": Descriptors.NumAromaticRings(molecule),
+                                      "sat_ring_number": Descriptors.NumSaturatedRings(molecule),
+                                      "aliph_ring_number": Descriptors.NumAliphaticRings(molecule),
+                                      "bridge_head_number": rdMolDescriptors.CalcNumBridgeheadAtoms(molecule),
+                                      "sp3_percent": Descriptors.FractionCSP3(molecule),
+                                      "surface_area": round(Descriptors.LabuteASA(molecule), 8),
+                                      "partial_charge": round(Descriptors.MaxAbsPartialCharge(molecule), 8),
+                                      "hk_alpha": round(Descriptors.HallKierAlpha(molecule), 8)
+                                      })
+            
+            record_molecule_info(molecule_data)
             if save_csv_data is True:
-                violations_formatted = "; ".join(violations) if violations else "None"
-                append_csv_molecule_data([name, mw, h_donors, h_acceptors, logp, is_drug_likely, violations_formatted, pc_id])
+                molecule_data["violations"] = "; ".join(molecule_data["violations"]) if molecule_data["violations"] else "None"
+                append_csv_molecule_data(list(molecule_data.values()))
+                
         except Exception as err:
             print_log(1, f"Compound descriptor error. {err}.")
 
+    record_molecule_summary(id_list)
     if save_csv_data is True:
         save_csv_molecule_data()
 
@@ -246,16 +345,17 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
     console_parser.add_argument("--file", help="The file path of a .txt containing CIDs formatted with commas or spaces.")
     console_parser.add_argument("--entry", help="A manually-entered string of CIDs.")
 
-    console_parser.add_argument("--ovr_delay", help="Override the delay time between PubChem requests. Be careful, this may ruin your work!")
-    console_parser.add_argument("--ovr_maxreq", help="Override the number of maximum requests in an operation period. Be careful, this may ruin your work!")
-    console_parser.add_argument("--ovr_cooldown", help="Override the time of a temporary cooldown period. Be careful, this may ruin your work!")
+    console_parser.add_argument("--api_delay", help="Override the delay time between PubChem requests. Be careful, this may ruin your work!")
+    console_parser.add_argument("--api_maxreq", help="Override the number of maximum requests in an operation period. Be careful, this may ruin your work!")
+    console_parser.add_argument("--api_cooldown", help="Override the time of a temporary cooldown period. Be careful, this may ruin your work!")
     
-    console_parser.add_argument("--drug", action="store_true", help="Record and print drug viability and violations.")
     console_parser.add_argument("--noprint", action="store_true", help="Abstain from printing fetched data in console.")
-    console_parser.add_argument("--format")
+    console_parser.add_argument("--nostat", action="store_true", help="Provide a short statistical summary regarding all of the fetched compounds.")
+    console_parser.add_argument("--format", help="Display a short example of PubChem ID entry and file formatting for this program.")
     
-    console_parser.add_argument("--full", help="Record all substansial properties associated with a compound.")
-    console_parser.add_argument("--csv_save", help="Save the fetched data in a CSV file.")
+    console_parser.add_argument("--full", action="store_true", help="Record all substansial properties associated with a compound.")
+    console_parser.add_argument("--save_csv", help="Save the fetched data in a CSV file.")
+    
     
     console_args = console_parser.parse_args()
     return console_args
@@ -272,36 +372,53 @@ def organize_args_input() -> str:
     if args.entry is not None:
         user_input = format_id_list(args.entry)
 
-    if args.ovr_delay is not None:
+    if args.api_delay is not None:
         global server_request_delay
         server_request_delay = float(args.ovr_delay)
         print_log(2, "Maximum request delay has been changed. This may ruin your work!")
-    if args.ovr_maxreq is not None:
+    if args.api_maxreq is not None:
         global max_pc_requests
         max_pc_requests = int(args.ovr_maxreq)
         print_log(2, "Maximum period requests has been changed. This may ruin your work!")
-    if args.ovr_cooldown is not None:
+    if args.api_cooldown is not None:
         global max_request_cooldown
         max_request_cooldown = float(args.ovr_cooldown)
         print_log(2, "Maximum request cooldown time has been changed. This may ruin your work!")
 
-    if args.drug:
-        global display_drug_attributes
-        display_drug_attributes = True
     if args.format:
         print("Format your file with each ID separated by a comma or space. (Ex: 256,438,1024)(Ex 2: 133 194 23 5)")
     if args.noprint:
         global console_noprint
         console_noprint = True
-    if args.csv_save is not None:
+    if args.save_csv is not None:
         global save_csv_data
         save_csv_data = True
 
         global csv_file_name
-        csv_file_name = args.csv_save
-        
+        csv_file_name = args.save_csv
+    if args.full:
+        global csv_data
+        csv_data = [["Compound Name", "PubChem ID", "Molecular Weight (g/mol)", "H-Donors", "H-Acceptors", "LogP", "Drug Possibility",
+                     "Lipinski Violations", "Number of Atoms", "Molecular Formula", "Number of Bonds", "Number of Rings", "Topological Polar Surface Area",
+                     "Rotatable Bonds", "Number of Heavy Atoms", "Number of Aromatic Rings", "Number of Saturated Rings", "Number of Aliphatic Rings",
+                     "Number of Bridge Head Atoms", "Percent of sp^3 Hybridization", "Surface Area", "Max Partial Charge", "Hall Kier Alpha"]]
 
+        global record_full_data
+        record_full_data = True
+    if args.nostat:
+        global disable_stat_report
+        disable_stat_report = True
+
+        
     return user_input
+
+
+def shutdown_cli() -> None:
+    print_log(0, "No CID data was entered by the user... Type --help for more information.")
+    print_log(0, "Exiting program...")
+
+    time.sleep(4)
+    sys.exit()
 
 
 
@@ -310,17 +427,12 @@ if __name__ == "__main__":
     
     args = initialize_console_args()
     user_input: str = organize_args_input()
-    
     if user_input is None or user_input == "":
-        print_log(0, "No CID data was entered by the user... Type help for more information.")
-        print_log(0, "Exiting program...")
+        shutdown_cli()
 
-        time.sleep(3)
-        sys.exit()
-        
-    compound_lists: list[str] = get_id_smiles(user_input)
-    check_drug_properties(compound_lists[0], compound_lists[1], user_input)
+    smiles_list, compound_names_list = get_id_smiles(user_input)
+    parse_compound_properties(smiles_list, compound_names_list, user_input)
 
     application_end_time = time.perf_counter()
-    print_log(0, f"Search and analysis completed (Execution Time: {(application_end_time-application_start_time):2f} s)...")
+    print_log(0, f"Search and analysis completed (Execution Time: {(application_end_time-application_start_time):2f} seconds)...")
     temp_char = input("\nPress enter to exit...")    
