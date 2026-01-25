@@ -1,0 +1,11 @@
+Compound Name,PubChem ID,Molecular Weight (g/mol),H-Donors,H-Acceptors,LogP,Drug Possibility,Lipinski Violations
+2-acetyloxybenzoic acid,2244,180.159,1,3,1.3101,True,None
+N-(4-hydroxyphenyl)acetamide,1983,151.165,2,2,1.3506,True,None
+N-methyl-3-phenyl-3-[4-(trifluoromethyl)phenoxy]propan-1-amine,3386,309.331,1,2,4.435,True,None
+2-(6-chloro-9H-carbazol-2-yl)propanoic acid,2581,273.719,2,1,4.1626,True,None
+"(3S,6S,9S,12R,15S,18S,21S,24S,30S,33S)-30-ethyl-33-[(E,1R,2R)-1-hydroxy-2-methylhex-4-enyl]-1,4,7,10,12,15,19,25,28-nonamethyl-6,9,18,24-tetrakis(2-methylpropyl)-3,21-di(propan-2-yl)-1,4,7,10,13,16,19,22,25,28,31-undecazacyclotritriacontane-2,5,8,11,14,17,20,23,26,29,32-undecone",5284373,1202.635,5,12,3.269,False,Molecular Weight (g/mol) > 500); Hydrogen bond acceptors > 10)
+"methyl 10-(3a,6,6,9a-tetramethyl-2,7-dioxo-4,5,5a,8,9,9b-hexahydro-1H-cyclopenta[a]naphthalen-3-ylidene)-2,6-dimethylundeca-2,4,6,8-tetraenoate",5288,478.673,0,4,6.8816,False,Octanol-water partition coefficient (LogP) > 5)
+"[[3-(2-amino-4-oxo-4a,7,8,8a-tetrahydro-3H-pteridin-6-yl)-2,3-dihydroxypropoxy]-hydroxyphosphoryl] phosphono hydrogen phosphate",161,497.187,9,13,-3.7651,False,Hydrogen bond donors > 5); Hydrogen bond acceptors > 10)
+N-phenyl-N-[1-(2-phenylethyl)piperidin-4-yl]propanamide,3345,336.479,0,2,4.1367,True,None
+2-[[2-[[2-[[2-[[6-amino-2-[[4-amino-2-[[2-[[2-[[2-amino-3-(1H-imidazol-5-yl)propanoyl]amino]-3-carboxypropanoyl]amino]-4-methylsulfanylbutanoyl]amino]-4-oxobutanoyl]amino]hexanoyl]amino]-3-methylbutanoyl]amino]-4-methylpentanoyl]amino]-3-carboxypropanoyl]amino]-4-methylpentanoic acid,3612,1084.265,15,16,-3.3024,False,Molecular Weight (g/mol) > 500); Hydrogen bond donors > 5); Hydrogen bond acceptors > 10)
+1-naphthalen-1-yloxy-3-(propan-2-ylamino)propan-2-ol,4946,259.349,2,3,2.5775,True,None
