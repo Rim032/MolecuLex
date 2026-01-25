@@ -26,7 +26,7 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 | Argument | Description |
 | :--- | :--- |
 | `--drug` | Enables Lipinski’s Rule of Five screening and displays violations. |
-| `--csv_save [name]` | Exports results to a CSV file. Provide a name or leave blank for default. |
+| `--save_csv [name]` | Exports results to a CSV file. Provide a name or leave blank for default. |
 | `--noprint` | Disables visual console output (useful for high-volume processing). |
 
 ### 2. API & Internal Flags
@@ -40,7 +40,7 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 **Example Usage & Arguments:**
 Scan a range of IDs, evaluate drug-likeness, and export to a specific CSV file.
 ```bash
-python moleculex.py --fmin 1 --fmax 100 --drug --csv_save my_results
+python moleculex.py --fmin 1 --fmax 512 --drug --save_csv my_data_and_such
 ```
 
 ---
