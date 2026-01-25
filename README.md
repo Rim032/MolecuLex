@@ -25,16 +25,17 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 ### 2. Analysis & Export Flags
 | Argument | Description |
 | :--- | :--- |
-| `--drug` | Enables Lipinski’s Rule of Five screening and displays violations. |
 | `--save_csv [name]` | Exports results to a CSV file. Provide a name or leave blank for default. |
-| `--noprint` | Disables visual console output (useful for high-volume processing). |
+| `--full` | Gathers additional data and properties for each compound. |
+| `--noprint` | Disables console printing of each compound's properties (useful for high-volume processing). |
+| `--nostat` | Disables console printing of a cumulative data summary. |
 
 ### 2. API Flags
 | Argument | Description |
 | :--- | :--- |
-| `--ovr_delay [int]` | Ovveride the delay between API request in seconds. Use with caution! |
-| `--ovr_maxreq [int]` | Alter the maximum number of API requests before a cooldown engages. Use with caution! |
-| `--ovr_cooldown [int]` | Change the temporary cooldown time after a limit of API requests is reached. Use with caution! |
+| `--api_delay [int]` | Ovveride the delay between API request in seconds. Use with caution! |
+| `--api_maxreq [int]` | Alter the maximum number of API requests before a cooldown engages. Use with caution! |
+| `--api_cooldown [int]` | Change the temporary cooldown time after a limit of API requests is reached. Use with caution! |
 
 ---
 **Example Usage & Arguments:**
