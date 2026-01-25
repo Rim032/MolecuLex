@@ -1,4 +1,4 @@
-# MolecuLex (v0.95)
+# MolecuLex (v0.97)
 ```
  __       __            __                                __                           
 /  \     /  |          /  |                              /  |                          
@@ -12,6 +12,14 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 ```
 
 **MolecuLex** is a versatile, light-weight chemoinformatics CLI tool designed for automated reagent, drug, and general molecule probing. Through the usage of **RDKit** and **PubChemPy**, researchers are able to rapidly evaluate large batches of compounds en masse.
+
+![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Version](https://img.shields.io/badge/version-0.97-orange)
+
+## Description
+
+This program utilizes a high-volume pipeline optimized for chunked [PUG REST](https://pubchem.ncbi.nlm.nih.gov/docs/pug-rest) requests at incraments of 256 compounds. It hosts a robust chemoinformatics suite through providing metrics on molecular composition, topological polar surface area (TPSA), electronic partial charges, and so much more, alongside Lipinski Rule of Five screening. Data is able to be rapidly organized and exported through a .CSV file pipeline for molecule collection, database screening and more. Supporting sequential ranges, manual entry, and file parsing, it serves as a flexible and easy-to-use tool for chemists and others alike.
 
 ## Commands & Settings
 
@@ -29,25 +37,18 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
 | `--full` | Gathers additional data and properties for each compound. |
 | `--noprint` | Disables console printing of each compound's properties (useful for high-volume processing). |
 | `--nostat` | Disables console printing of a cumulative data summary. |
-
-### 2. API Flags
-| Argument | Description |
-| :--- | :--- |
-| `--api_delay [int]` | Ovveride the delay between API request in seconds. Use with caution! |
-| `--api_maxreq [int]` | Alter the maximum number of API requests before a cooldown engages. Use with caution! |
-| `--api_cooldown [int]` | Change the temporary cooldown time after a limit of API requests is reached. Use with caution! |
+| `--api_batch [int]` | Override the amount of requests made in one chunk at a time. Use with caution! |
 
 ---
 **Example Usage & Arguments:**
 Scan a range of IDs, evaluate drug-likeness, and export to a specific CSV file.
 ```bash
-python moleculex.py --fmin 1 --fmax 512 --drug --save_csv my_data_and_such
+python moleculex.py --fmin 1 --fmax 4096 --full --save_csv my_data_and_such
 ```
 
 ---
 
 ## Misc.
-* **Note:**
-* **Testing:**
-* **Compatibility:**
-* **Notice:**
+* **Note:** A windows executable (.exe) of this project will be published upon the 1.0 release. Files containing CIDs must be separated by commas (exclude any and all spaces. **type --format for more information in the program**).
+* **Testing:** As of writing, this program has proved able to successfully analyze and export chemical data for over 32,000+ compounds and counting. Over eight trials, consisting of a thousand entries each, it has demonstrated to be capable of requesting and processing 130 (± 2.2) compounds per second on average.
+* **Compatibility:** Windows 10/11 and Python 3.10+ are required.
