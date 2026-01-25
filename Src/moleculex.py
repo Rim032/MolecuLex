@@ -323,7 +323,7 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
     console_parser.add_argument("--file", help="The file path of a .txt containing CIDs formatted with commas or spaces.")
     console_parser.add_argument("--entry", help="A manually-entered string of CIDs.")
 
-    console_parser.add_argument("--api_batch", help="Override the delay (in seconds) between API request batches. Be careful, this may ruin your work!")
+    console_parser.add_argument("--api_batch", help="Override the amount of requests made in one chunk at a time. Use with caution!")
     
     console_parser.add_argument("--noprint", action="store_true", help="Abstain from printing fetched data in console.")
     console_parser.add_argument("--nostat", action="store_true", help="Provide a short statistical summary regarding all of the fetched compounds.")
@@ -405,4 +405,3 @@ if __name__ == "__main__":
     application_end_time = time.perf_counter()
     print_log(0, f"Search and analysis completed (Execution Time: {(application_end_time-application_start_time):2f} seconds)...")
     temp_char = input("\nPress enter to exit...")    
-
