@@ -315,7 +315,7 @@ $$ |$$$/ $$ |$$ \__$$ |$$ |$$$$$$$$/ $$ \_____ $$ \__$$ |$$ |_____ $$$$$$$$/  /$
 $$ | $/  $$ |$$    $$/ $$ |$$       |$$       |$$    $$/ $$       |$$       |/$$/ $$  |
 $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/   $$/ 
 \n""")
-    print(f"{'—'*90}\n  MolecuLex\n    Version: {application_version}\n    Made by Rim032\n    Last Updated: 2026/1/18\n{'—'*90}\n\n")
+    print(f"{'—'*90}\n  MolecuLex\n    Version: {application_version}\n    Made by Rim032\n    Last Updated: 2026/1/25\n{'—'*90}\n\n")
     
     console_parser = argparse.ArgumentParser()
     console_parser.add_argument("--fmin", help="Minimum value of CIDs to search through.")
@@ -405,3 +405,4 @@ if __name__ == "__main__":
     application_end_time = time.perf_counter()
     print_log(0, f"Search and analysis completed (Execution Time: {(application_end_time-application_start_time):2f} seconds)...")
     temp_char = input("\nPress enter to exit...")    
+
