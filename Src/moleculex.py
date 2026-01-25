@@ -13,10 +13,10 @@ from rdkit.Chem import rdMolDescriptors
 
 
 os.system('')
-#PUG REST throttling to avoid request denial and server strain.
-server_request_delay = 0.1
-max_pc_requests = 200
-max_request_cooldown = 30
+
+
+
+max_request_size = 256
 desired_extension = ".txt"
 
 log_types = [
@@ -26,7 +26,7 @@ log_types = [
 ]
 
 display_drug_attributes = True
-application_version = 0.95
+application_version = 0.97
 
 console_noprint = False
 save_csv_data = False
@@ -36,8 +36,6 @@ disable_stat_report = False
 violation_count = 0
 likely_drug_count = 0
 unlikely_drug_count = 0
-total_requests_made = 0
-total_cooldowns = 0
 
 
 csv_file_name = "untitled_molecuLex_data"
@@ -129,8 +127,6 @@ def record_molecule_summary(id_list: list[str]) -> None:
     WIDTH: int = 62
     LABEL_W: int = 20
     DATA_W: int = 30
-
-    cooldown_time_calculated: float = total_cooldowns * max_request_cooldown
     
     try:
         print("\n\n")
@@ -142,14 +138,8 @@ def record_molecule_summary(id_list: list[str]) -> None:
 
         print(f"║ { 'Total Compounds:':<{LABEL_W}}{len(id_list):>{DATA_W}}\t   {' ':<2}║")
         print(f"║ { 'Total Violations:':<{LABEL_W}}{violation_count:>{DATA_W}}\t   {' ':<2}║")
-        print(f"║ { '# Likely Drugs:':<{LABEL_W}}{unlikely_drug_count:>{DATA_W}}\t   {' ':<2}║")
-        print(f"║ { '# Unlikely Drugs:':<{LABEL_W}}{likely_drug_count:>{DATA_W}}\t   {' ':<2}║")
-
-        print(f"╟{'─' * (WIDTH-2)}╢")
-        
-        print(f"║ { 'Total API Requests:':<{LABEL_W}}{total_requests_made:>{DATA_W}}\t   {' ':<2}║")
-        print(f"║ { 'Total API Cooldowns:':<{LABEL_W}}{total_cooldowns:>{DATA_W}}\t   {' ':<2}║")
-        print(f"║ { 'Total Cooldown Time:':<{LABEL_W}}{cooldown_time_calculated:>{DATA_W}} s\t   {' ':<2}║")
+        print(f"║ { '# Likely Drugs:':<{LABEL_W}}{likely_drug_count:>{DATA_W}}\t   {' ':<2}║")
+        print(f"║ { '# Unlikely Drugs:':<{LABEL_W}}{unlikely_drug_count:>{DATA_W}}\t   {' ':<2}║")
         
         print(f"╚{'═' * (WIDTH-2)}╝")
     except Exception as err:
@@ -206,39 +196,27 @@ def get_id_smiles(id_list: list[str]) -> list[str]:
     smiles_list: list[str] = []
     name_list: list[str] = []
 
-    request_counter: int = 0
+    comp_index: int = 0
+    print(f"\n{'—'*20} DATA ACQUISITION PHASE: INITIATED {'—'*20}")
+    print_log(0, f"Connecting to PubChem API for {len(id_list)} compounds...")
+
     try:
-        print(f"\n{'—'*20} DATA ACQUISITION PHASE {'—'*20}")
-        print_log(0, f"Connecting to PubChem API for {len(id_list)} compounds...")
-        for i, pub_id in enumerate(id_list, 1):
-            if request_counter > max_pc_requests:
-                print("")
-                print_log(2, f"Currently cannot faciliate any additional request to PubChem. ({max_pc_requests} request MAX)")
-                print_log(0, f"Requests have temporarily been placed on cooldown for {max_request_cooldown} seconds.")
-                
-                request_counter = 0
-                global total_cooldowns
-                total_cooldowns = total_cooldowns + 1
-                
-                time.sleep(max_request_cooldown)
+        for i in range(0, len(id_list), max_request_size):
+            id_list_chunk = id_list[i : i + max_request_size]
+            fetched_compounds = pcp.get_compounds(id_list_chunk, 'cid')
+            for pub_compound in fetched_compounds:     
+                api_bar_print(id_list, 30, comp_index, id_list[comp_index])
                     
-            pub_compound = pcp.Compound.from_cid(pub_id)
-            time.sleep(server_request_delay)
-            api_bar_print(id_list, 30, i, pub_id)
-            
-            if pub_compound is not None:
-                smiles_list.append(pub_compound.smiles)
-                name_list.append(pub_compound.iupac_name)
-                
-            request_counter = request_counter + 1
-            global total_requests_made
-            total_requests_made = total_requests_made + 1
+                if pub_compound is not None:
+                    smiles_list.append(pub_compound.smiles)
+                    name_list.append(pub_compound.iupac_name)
+
+                comp_index = comp_index + 1
     except Exception as err:
         print("")
         print_log(1, f"API Issue. {err}.")
-    print("")
+    print(f"\n{'—'*20} DATA ACQUISITION PHASE: COMPLETED {'—'*20}")
     
-
     return smiles_list, name_list
 
 
@@ -326,7 +304,7 @@ def parse_compound_properties(smiles_list: list[str], names_list: list[str], id_
 
 
 def initialize_console_args() -> str:
-    print("""\n\n
+    print("""\n\n\
  __       __            __                                __                           
 /  \     /  |          /  |                              /  |                          
 $$  \   /$$ |  ______  $$ |  ______    _______  __    __ $$ |        ______   __    __ 
@@ -345,14 +323,12 @@ $$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/
     console_parser.add_argument("--file", help="The file path of a .txt containing CIDs formatted with commas or spaces.")
     console_parser.add_argument("--entry", help="A manually-entered string of CIDs.")
 
-    console_parser.add_argument("--api_delay", help="Override the delay time between PubChem requests. Be careful, this may ruin your work!")
-    console_parser.add_argument("--api_maxreq", help="Override the number of maximum requests in an operation period. Be careful, this may ruin your work!")
-    console_parser.add_argument("--api_cooldown", help="Override the time of a temporary cooldown period. Be careful, this may ruin your work!")
+    console_parser.add_argument("--api_batch", help="Override the delay (in seconds) between API request batches. Be careful, this may ruin your work!")
     
     console_parser.add_argument("--noprint", action="store_true", help="Abstain from printing fetched data in console.")
     console_parser.add_argument("--nostat", action="store_true", help="Provide a short statistical summary regarding all of the fetched compounds.")
-    console_parser.add_argument("--format", help="Display a short example of PubChem ID entry and file formatting for this program.")
     
+    console_parser.add_argument("--format", help="Display a short example of PubChem ID entry and file formatting for this program.")
     console_parser.add_argument("--full", action="store_true", help="Record all substansial properties associated with a compound.")
     console_parser.add_argument("--save_csv", help="Save the fetched data in a CSV file.")
     
@@ -372,24 +348,13 @@ def organize_args_input() -> str:
     if args.entry is not None:
         user_input = format_id_list(args.entry)
 
-    if args.api_delay is not None:
-        global server_request_delay
-        server_request_delay = float(args.ovr_delay)
-        print_log(2, "Maximum request delay has been changed. This may ruin your work!")
-    if args.api_maxreq is not None:
-        global max_pc_requests
-        max_pc_requests = int(args.ovr_maxreq)
-        print_log(2, "Maximum period requests has been changed. This may ruin your work!")
-    if args.api_cooldown is not None:
-        global max_request_cooldown
-        max_request_cooldown = float(args.ovr_cooldown)
-        print_log(2, "Maximum request cooldown time has been changed. This may ruin your work!")
+    if args.api_batch is not None:
+        global max_request_size
+        max_request_size = int(args.api_batch)
+        print_log(2, "Maximum API batch size has been changed. This may ruin your work!")
 
     if args.format:
         print("Format your file with each ID separated by a comma or space. (Ex: 256,438,1024)(Ex 2: 133 194 23 5)")
-    if args.noprint:
-        global console_noprint
-        console_noprint = True
     if args.save_csv is not None:
         global save_csv_data
         save_csv_data = True
@@ -405,9 +370,13 @@ def organize_args_input() -> str:
 
         global record_full_data
         record_full_data = True
+
     if args.nostat:
         global disable_stat_report
         disable_stat_report = True
+    if args.noprint:
+        global console_noprint
+        console_noprint = True
 
         
     return user_input
@@ -436,4 +405,3 @@ if __name__ == "__main__":
     application_end_time = time.perf_counter()
     print_log(0, f"Search and analysis completed (Execution Time: {(application_end_time-application_start_time):2f} seconds)...")
     temp_char = input("\nPress enter to exit...")    
-
