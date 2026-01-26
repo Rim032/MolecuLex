@@ -8,7 +8,7 @@ $$$$  /$$$$ |/$$$$$$  |$$ |/$$$$$$  |/$$$$$$$/ $$ |  $$ |$$ |      /$$$$$$  |$$ 
 $$ $$ $$/$$ |$$ |  $$ |$$ |$$    $$ |$$ |      $$ |  $$ |$$ |      $$    $$ | $$  $$<  
 $$ |$$$/ $$ |$$ \__$$ |$$ |$$$$$$$$/ $$ \_____ $$ \__$$ |$$ |_____ $$$$$$$$/  /$$$$  \ 
 $$ | $/  $$ |$$    $$/ $$ |$$       |$$       |$$    $$/ $$       |$$       |/$$/ $$  |
-$$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/   $$/ 
+$$/      $$/  $$$$$$/  $$/  $$$$$$$/  $$$$$$$/  $$$$$$/  $$$$$$$$/  $$$$$$$/ $$/   $$/
 ```
 
 **MolecuLex** is a versatile, light-weight chemoinformatics CLI tool designed for automated reagent, drug, and general molecule probing. Through the usage of **RDKit** and **PubChemPy**, researchers are able to rapidly evaluate large batches of compounds en masse.
@@ -49,6 +49,7 @@ python moleculex.py --fmin 1 --fmax 4096 --full --save_csv my_data_and_such
 ---
 
 ## Misc.
-* **Note:** Files containing CIDs must be separated by commas (exclude any and all spaces. **type --format for more information in the program**).
+> [!NOTE]
+> Files containing CIDs must be separated by commas (exclude any and all spaces. **type --format for more information in the program**).
 * **Testing:** During testing, this program has been able to successfully analyze and export chemical data for over 120,000+ compounds and counting. Over eight trials, consisting of a thousand entries each, it has demonstrated to be capable of requesting and processing 130 (± 2.2) compounds per second on average.
 * **Compatibility:** Windows 10/11 and [Python 3.10+](https://www.python.org/downloads/) are required.
