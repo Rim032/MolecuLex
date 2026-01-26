@@ -34,13 +34,13 @@ def create_local_id_list(min_id: int, max_id: int) -> list[str]:
         print_log(1, f"Too large of a maximum ID value. MAX INT SIZE: {sys.maxsize}")
         return
 
-    if min_id < 0 or max_id < 1:
+    if min_id < 1 or max_id < 1:
         print_log(1, f"Too small of a min or max CID to search through. Please choose positive integers.")
         return
 
     new_id_list: list[str] = []
-    for i in range(max_id-min_id):
-        new_id_list.append(str(i+min_id+1))
+    for i in range(min_id, max_id + 1):
+        new_id_list.append(str(i))
 
     return new_id_list
 
