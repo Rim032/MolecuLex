@@ -20,6 +20,10 @@ log_types: list = [
     "WARNING"   #2
 ]
 
+WIDTH: int = 62
+LABEL_W: int = 20
+DATA_W: int = 30
+
 
 
 
@@ -81,8 +85,8 @@ class MolecuLexParser():
         self.user_input: str = ""
 
         self.display_drug_attributes: bool = True
-        self.application_version: float = 0.99
-        self.last_updated_date: str = "2026/1/25"
+        self.application_version: str = "0.99.5"
+        self.last_updated_date: str = "2026/2/21"
         self.csv_file_name: str = "untitled_molecuLex_data"
 
         self.console_noprint: bool = False
@@ -305,10 +309,6 @@ class MolecuLexParser():
         is_drug_likely: bool = molecule_data["is_drug_likely"]
         name: str = molecule_data["name"]
         
-        WIDTH: int = 62
-        LABEL_W: int = 20
-        DATA_W: int = 30
-        
         try:
             tag = "[ LIKELY DRUG CANDIDATE ]" if is_drug_likely else "[ UNLIKELY DRUG CANDIDATE ]"
             print(f"\n╔{'═' * (WIDTH-2)}╗")
@@ -346,10 +346,6 @@ class MolecuLexParser():
     def print_molecule_summary(self) -> None:
         if self.disable_stat_report is True or self.id_list is None:
             return
-        
-        WIDTH: int = 62
-        LABEL_W: int = 20
-        DATA_W: int = 30
         
         try:
             print("\n\n")
